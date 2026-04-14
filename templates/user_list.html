@@ -1,0 +1,19 @@
+<h1>Вы успешно авторизовались!</h1>
+
+<h2>Список пользователей</h2>
+
+{% for i in user_list %}
+<img src="{{ i.photo.url }}" alt="" width="300" height="400">
+<h3>пользователь № - {{ i.id }}</h3>
+<h3>никнейм - {{ i.username }}</h3>
+<p>пароль - {{ i.password }}</p>
+<p>пол - {{ i.gender }}</p>
+<p>номер телефона - {{ i.phone_number }}</p>
+<p>город - {{ i.city }}</p>
+<hr>
+{% endfor %}
+
+<form action="/login/" method="POST">
+    {% csrf_token %}
+    <button type="submit">Выйти из аккаунта</button>
+</form>
