@@ -1,6 +1,6 @@
 <h1>Корзина</h1>
 
-<a href="/create_order/">Добавить товары</a>
+<a href="{% url 'basket:add_order' %}">Добавить товары</a>
 
 {% for i in basket_list %}
 

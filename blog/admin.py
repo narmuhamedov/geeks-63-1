@@ -1,4 +1,7 @@
 from django.contrib import admin
 from blog.models import Blog
-# Register your models here.
-admin.site.register(Blog)
+
+# Регистрируем модель с кастомным ModelAdmin
+@admin.register(Blog)  # Это декоратор, альтернатива admin.site.register()
+class BlogAdmin(admin.ModelAdmin):
+    exclude = ('views',)  # Скрываем поле views

@@ -20,24 +20,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from blog.views import fist_message_view, second_message_view, photo_message_view, blog_list_view, blog_detail_view
+
 from connection_database.views import car_list_view
 
-from basket.views import create_order_view, read_order_view, update_order_view, delete_order_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('fist_message/', fist_message_view),
-    path('second_message/', second_message_view),
-    path('photo_message/', photo_message_view),
-    path('blog_list/', blog_list_view),
-    path('blog_list/<int:id>/', blog_detail_view),
-    path('car_list/', car_list_view),
+    path('', include('blog.urls')),
     
-    path('create_order/', create_order_view),
-    path('order_list/', read_order_view),
-    path('order_list/<int:id>/update/', update_order_view),
-    path('order_list/<int:id>/delete/', delete_order_view),
+    path('car_list/', car_list_view),
+    path('', include('basket.urls')),
+  
     
     path('', include('users.urls')),
 ]

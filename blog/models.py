@@ -14,7 +14,7 @@ class Blog(models.Model):
     )
     type_blog = models.CharField(max_length=100, choices=TYPE_BLOG, default='Путешевствие')
     email_author = models.EmailField('введите email автора', default='@gmail.com', null=True)
-
+    views = models.PositiveIntegerField(default=0, null=True)
 
     def __str__(self):
         return self.title

@@ -11,7 +11,7 @@ def create_order_view(request):
         form = BasketForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/order_list/')
+            return redirect('basket:orders')
     else:
         form = BasketForm()
     return render(
