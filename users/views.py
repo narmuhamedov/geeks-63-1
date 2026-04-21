@@ -4,34 +4,62 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from users.models import CustomUser
 from users.forms import CustomRegisterForm
+
+from django.views import generic
+
+from django.contrib.auth.views import LoginView, LogoutView
+
+from django.urls import reverse_lazy
+
 #register
-def register_view(request):
-    if request.method == "POST":
-        form = CustomRegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('/login/')
-    else:
-        form = CustomRegisterForm()
-    return render(request, 'register.html', {"form":form})
+class RegisterView(generic.CreateView):
+    template_name = 'register.html'
+    form_class = CustomRegisterForm
+    success_url = '/login/'
+
+
+
+
+
+
+# def register_view(request):
+#     if request.method == "POST":
+#         form = CustomRegisterForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/login/')
+#     else:
+#         form = CustomRegisterForm()
+#     return render(request, 'register.html', {"form":form})
 
 #auth_login
-def auth_login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('/user_list/')
-    else:
-        form = AuthenticationForm()
-    return render(request, "login.html", {'form':form})
+
+class AuthLoginView(LoginView):
+    template_name = 'login.html'
+    form_class = AuthenticationForm
+    success_url = 'user_list'
+
+
+# def auth_login_view(request):
+#     if request.method == "POST":
+#         form = AuthenticationForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('/user_list/')
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, "login.html", {'form':form})
 
 
 #auth_logout
-def auth_logout_view(request):
-    logout(request)
-    return redirect('/login/')
+class AuthLogoutView(LogoutView):
+    next_page = reverse_lazy('/login/')
+
+
+# def auth_logout_view(request):
+#     logout(request)
+#     return redirect('/login/')
 
 
 #user_list
